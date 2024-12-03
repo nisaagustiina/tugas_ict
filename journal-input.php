@@ -126,17 +126,18 @@ if (isset($_GET['id'])) {
         <form name="journalForm" action="journal-proses.php" method="post" onsubmit="return validateForm()">
             <div id="errorMessages" class="error"></div>
             <input value="<?= isset($data['id']) ? $data['id'] : 0 ?>" name="id" type="hidden">
+            <input value="<?= $_SESSION['user_id'] ?>" name="user_id" type="hidden">
 
-            <label for="user_id">User</label>
+            <!-- <label for="user_id">User</label>
             <select class="form-control" name="user_id" id="user_id" required>
                 <option value="">--Pilih--</option>
-                <?php
-                $getUser = mysqli_query($conn, "SELECT * FROM users");
-                while ($user = mysqli_fetch_array($getUser)) {
-                    echo '<option value="' . $user['id'] . '" ' . ($data['user_id'] == $user['id'] ? 'selected' : '') . '>' . $user['name'] . '</option>';
-                }
-                ?>
-            </select>
+               <?php
+               // $getUser = mysqli_query($conn, "SELECT * FROM users");
+               // while ($user = mysqli_fetch_array($getUser)) {
+               //     echo '<option value="' . $user['id'] . '" ' . ($data['user_id'] == $user['id'] ? 'selected' : '') . '>' . $user['name'] . '</option>';
+               // }
+               // ?> 
+            </select> -->
 
             <label for="date">Tanggal</label>
             <input type="date" name="date" id="date" value="<?= isset($data['date']) ? $data['date'] : '' ?>" required>
