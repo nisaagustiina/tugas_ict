@@ -1,6 +1,13 @@
 <?php
 session_start();
 include 'conn.php';
+
+// Periksa apakah sesi user_id ada
+if (!isset($_SESSION['user_id'])) {
+    // Jika belum login, arahkan ke login.php
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -66,12 +73,27 @@ include 'conn.php';
         .action-links a {
             margin-right: 10px;
         }
+
+        .logout {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logout:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 
 <body>
     <h2>Journal</h2>
     <a href="journal-input.php">Tambah Data</a>
+    <a href="logout.php" class="logout">Logout</a>
     <table>
         <thead>
             <tr>
@@ -109,11 +131,10 @@ include 'conn.php';
                                     onclick="return confirm('Apakah yakin akan menghapus data ini?')">Hapus</a>
                             </div>
                         </td>
-
                     </tr>
                 <?php }
             } else {
-                echo "<tr><td>Belum Ada Data</td></tr>";
+                echo "<tr><td colspan='8'>Belum Ada Data</td></tr>";
             }
             ?>
         </tbody>
