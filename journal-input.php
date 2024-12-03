@@ -2,6 +2,13 @@
 session_start();
 include 'conn.php';
 
+// Periksa apakah sesi user_id ada
+if (!isset($_SESSION['user_id'])) {
+    // Jika belum login, arahkan ke login.php
+    header("Location: login.php");
+    exit();
+}
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $query = mysqli_query($conn, "SELECT * FROM journals WHERE id = '$id'");
