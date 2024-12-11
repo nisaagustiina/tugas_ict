@@ -12,133 +12,130 @@ if (!isset($_SESSION['user_id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journal</title>
+    <title>Tampilan Transaksi</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
             background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
         }
-
-        h2 {
+        .container {
+            width: 100%;
+            height: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #ffef99;
+            padding: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .header h2 {
+            margin: 10px 0;
+            font-size: 18px;
             color: #333;
         }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
+        .header .amount {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+            color: #000;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 30px 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .content img {
+            width: 80px;
+            height: 80px;
             margin-bottom: 15px;
-            display: inline-block;
+            border-radius: 50%;
         }
-
-        a:hover {
-            color: #0056b3;
+        .content p {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
         }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
+        .content p strong {
+            font-weight: bold;
+            color: #000;
         }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        td a {
-            color: #28a745;
-        }
-
-        td a:hover {
-            color: #218838;
-        }
-
-        .action-links a {
-            margin-right: 10px;
-        }
-
-        .logout {
-            background-color: #dc3545;
-            color: white;
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f1f1f1;
             padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
+            border-top: 1px solid #ddd;
+            flex-shrink: 0;
         }
-
-        .logout:hover {
-            background-color: #c82333;
+        .footer button {
+            flex: 1;
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .footer button:hover {
+            color: #000;
+        }
+        .footer button span {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
-
 <body>
-    <h2>Journal</h2>
-    <a href="journal-input.php">Tambah Data</a>
-    <a href="logout.php" class="logout">Logout</a>
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>User</th>
-                <th>Tanggal</th>
-                <th>Note</th>
-                <th>Categori</th>
-                <th>Tipe</th>
-                <th>Nominal</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $no = 1;
-            $query = mysqli_query($conn, "SELECT journals.*, categories.name as category_name, users.name as user_name FROM journals 
-            INNER JOIN categories ON categories.id = journals.category_id 
-            INNER JOIN users ON journals.user_id = users.id");
-            if (mysqli_num_rows($query) > 0) {
-                while ($item = mysqli_fetch_array($query)) {
-                    ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $item['user_name'] ?></td>
-                        <td><?= $item['date'] ?></td>
-                        <td><?= $item['note'] ?></td>
-                        <td><?= $item['category_name'] ?></td>
-                        <td><?= $item['type'] == 0 ? 'pemasukan' : 'pengeluaran' ?></td>
-                        <td><?= $item['nominal'] ?></td>
-                        <td>
-                            <div class="action-links">
-                                <a href="journal-input.php?id=<?= $item['id']; ?>">Edit</a>
-                                <a href="journal-proses.php?id=<?= $item['id']; ?>"
-                                    onclick="return confirm('Apakah yakin akan menghapus data ini?')">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                <?php }
-            } else {
-                echo "<tr><td colspan='8'>Belum Ada Data</td></tr>";
-            }
-            ?>
-        </tbody>
-    </table>
-</body>
+    <div class="container">
+        <div class="header">
+            <h2>Total Pendapatan</h2>
+            <div class="amount">Rp 0</div>
+            <h2>Total Pengeluaran</h2>
+            <div class="amount">Rp 0</div>
+        </div>
+        <div class="content">
+            <img src="assets/meong.jpg" alt="Cat Icon">
+            <p><strong>Tidak ada catatan</strong></p>
+            <p>Tekan <strong>“+”</strong> untuk mencatat transaksi dan mulai kelola pengeluaran Anda</p>
+        </div>
+        <div class="footer">
+            <button>
+                <span>↔</span>
+                Transaksi
+            </button>
+            <button onclick="window.location.href='tambah-catatan.php'">
+                <span>+</span>
+                Tambah
+            </button>
 
+            <button>
+                <span>📄</span>
+                Laporan
+            </button>
+        </div>
+    </div>
+</body>
 </html>
