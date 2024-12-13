@@ -26,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $_SESSION['user_name'] = $user['name'];
     
             // Tambahkan pesan berhasil login
-            $success = "Berhasil login.";
+           // $success = "Berhasil login.";
             
             // Redirect ke index.php (opsional jika tidak ingin redirect langsung)
-            header("Location: index.php?success=" . urlencode($success));
+            header("Location: index.php" . urlencode($success));
             exit();
         } else {
             $error = "Login gagal. Password salah.";
