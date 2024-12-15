@@ -2,6 +2,7 @@
 session_start();
 include 'conn.php';
 
+// Periksa apakah sesi user_id ada
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -16,18 +17,16 @@ if (isset($_GET['id'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal</title>
-    <link rel="stylesheet" href="./assets/css/journal.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="container">
-        <h2>Form Pencatatan</h2>
+        <h2>Journal Form</h2>
         <a href="index.php" class="back-button">Kembali</a>
         <br>
 
@@ -36,7 +35,7 @@ if (isset($_GET['id'])) {
             <input type="hidden" name="id" value="<?= isset($data['id']) ? $data['id'] : 0 ?>">
             <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
 
-            <!-- <label for="user_id">User</label>
+             <!-- <label for="user_id">User</label>
             <select class="form-control" name="user_id" id="user_id" required>
                 <option value="">--Pilih--</option>
                 <?php
@@ -47,15 +46,15 @@ if (isset($_GET['id'])) {
                 // 
                 ?> 
             </select> -->
-
+            
             <label for="date">Tanggal</label>
-            <input type="date" name="date" id="date" value="<?= isset($data['date']) ? $data['date'] : '' ?>">
+            <input type="date" name="date" id="date" value="<?= isset($data['date']) ? $data['date'] : '' ?>" required>
 
             <label for="note">Note</label>
-            <textarea name="note" rows="3"><?= isset($data['note']) ? htmlspecialchars($data['note']) : '' ?></textarea>
+            <textarea name="note" rows="3" required><?= isset($data['note']) ? htmlspecialchars($data['note']) : '' ?></textarea>
 
             <label for="category_id">Category</label>
-            <select name="category_id" id="category_id">
+            <select name="category_id" id="category_id" required>
                 <option value="">--Pilih--</option>
                 <?php
                 $getCategory = mysqli_query($conn, "SELECT * FROM categories");
@@ -73,7 +72,7 @@ if (isset($_GET['id'])) {
             </div>
 
             <label for="nominal">Nominal</label>
-            <input type="number" name="nominal" id="nominal" value="<?= isset($data['nominal']) ? $data['nominal'] : '' ?>">
+            <input type="number" name="nominal" id="nominal" value="<?= isset($data['nominal']) ? $data['nominal'] : '' ?>" required>
 
             <button type="submit" name="submit" value="<?= isset($data) && $data['id'] ? 'edit' : 'save' ?>">Submit</button>
         </form>
@@ -101,5 +100,4 @@ if (isset($_GET['id'])) {
         }
     </script>
 </body>
-
 </html>

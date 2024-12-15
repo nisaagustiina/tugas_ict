@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #FFF6C3;
+    background-color: #fff6c3;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,6 +15,9 @@ body {
     width: 100%;
     max-width: 400px;
     padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     box-sizing: border-box;
 }
 
@@ -28,7 +31,7 @@ h2 {
 .avatar {
     width: 100px;
     height: 100px;
-    background-image: url('../assets/meong.jpg');
+    background-image: url("../image/meong.jpg");
     background-size: cover;
     background-position: center;
     border-radius: 50%;
@@ -55,12 +58,11 @@ h2 {
 }
 
 .toggle-buttons button.active {
-    background: #D6B048;
-    color: #FFF;
+    background: #d6b048;
+    color: #fff;
 }
 
 form {
-    background-color: transparent;
     display: none;
 }
 
@@ -78,10 +80,14 @@ input[type="password"] {
     border-radius: 10px;
     font-size: 14px;
     font-family: Arial, sans-serif;
+    outline: none;
+    transition: border 0.3s;
 }
 
-input[type="password"] {
-    position: relative;
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #d6b048;
 }
 
 .toggle-password {
@@ -91,11 +97,12 @@ input[type="password"] {
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 16px;
+    color: #999;
 }
 
 button[type="submit"] {
     width: 100%;
-    background-color: #D6B048;
+    background-color: #d6b048;
     border: none;
     color: #fff;
     padding: 12px;
@@ -104,10 +111,11 @@ button[type="submit"] {
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    transition: background-color 0.3s;
 }
 
 button[type="submit"]:hover {
-    background-color: #C5A238;
+    background-color: #c5a238;
 }
 
 .helper-text {
@@ -117,33 +125,41 @@ button[type="submit"]:hover {
 }
 
 .helper-text a {
-    color: #D6B048;
+    color: #d6b048;
     text-decoration: none;
+    transition: color 0.3s;
+}
+
+.helper-text a:hover {
+    color: #c5a238;
 }
 
 .toast {
-    position: absolute;
-    top: 20px; /* Muncul di atas */
+    position: fixed;
+    top: 20px;
     left: 50%;
-    transform: translate(-50%, 0);
-    width: 90%; /* Responsif untuk layar kecil */
+    transform: translateX(-50%);
+    width: 90%;
     max-width: 400px;
     padding: 15px;
     font-size: 16px;
     text-align: center;
     color: #fff;
-    background-color: rgba(34, 139, 34, 0.9); /* Warna hijau */
+    background-color: rgba(34, 139, 34, 0.9);
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 9999;
-    display: none; /* Default tidak tampil */
+    display: none;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, top 0.5s ease-in-out;
 }
 
 .toast.show {
     display: block;
-    opacity: 1; /* Tampilkan pesan */
-    top: 50px; /* Posisi animasi akhir */
+    opacity: 1;
+    top: 50px;
 }
 
+.toast.error {
+    background-color: rgba(255, 69, 58, 0.9);
+}
