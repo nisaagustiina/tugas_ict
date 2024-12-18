@@ -2,7 +2,9 @@
 session_start();
 include 'conn.php';
 
-if (!isset($_SESSION['user_id'])) {
+$user_id = $_SESSION['user_id'];
+
+if (!isset($user_id)) {
     header("Location: login.php");
     exit();
 }
@@ -14,8 +16,8 @@ if (isset($_SESSION['success_message'])) {
 }
 
 // Query untuk menghitung total pendapatan (type = 0) dan pengeluaran (type = 1)
-$totalIncomeQuery = mysqli_query($conn, "SELECT SUM(nominal) as total_income FROM journals WHERE type = 0");
-$totalExpenseQuery = mysqli_query($conn, "SELECT SUM(nominal) as total_expense FROM journals WHERE type = 1");
+$totalIncomeQuery = mysqli_query($conn, "SELECT SUM(nominal) as total_income FROM journals WHERE type = 0 AND user_id = $user_id");
+$totalExpenseQuery = mysqli_query($conn, "SELECT SUM(nominal) as total_expense FROM journals WHERE type = 1 AND user_id = $user_id");
 
 $totalIncome = mysqli_fetch_assoc($totalIncomeQuery)['total_income'] ?? 0;
 $totalExpense = mysqli_fetch_assoc($totalExpenseQuery)['total_expense'] ?? 0;
@@ -74,12 +76,14 @@ $balance = $totalIncome - $totalExpense;
         <?php
         $query = mysqli_query($conn, "SELECT journals.*, categories.name as category_name, users.name as user_name FROM journals 
             INNER JOIN categories ON categories.id = journals.category_id 
-            INNER JOIN users ON journals.user_id = users.id ORDER BY date ASC ");
+            INNER JOIN users ON journals.user_id = users.id WHERE journals.user_id = $user_id ORDER BY date DESC ");
         if (mysqli_num_rows($query) > 0) {
             while ($item = mysqli_fetch_array($query)) {
                 $icon = $item['type'] == 0 ? './assets/image/gaji.jpg' : './assets/image/keranjang.jpg';
                 $amountClass = $item['type'] == 0 ? 'income' : 'expense';
+       
         ?>
+        
                 <div class="transaction-item">
                     <div class="transaction-info">
                         <img src="<?= $icon ?>" alt="icon">
