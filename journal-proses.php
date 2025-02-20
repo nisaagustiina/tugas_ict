@@ -43,4 +43,4 @@ if (isset($_GET['id'])) {
         echo "<script>alert('Error: " . $stmt->error . "'); window.location='index.php';</script>";
     }
 }
-?>
+

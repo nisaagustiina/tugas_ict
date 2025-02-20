@@ -46,6 +46,8 @@ $balance = $totalIncome - $totalExpense;
         <a href="logout.php" class="logout">Logout</a>
     </div>
 
+    <a href="./category.php">Tambah Kategori</a>
+
     <div class="summary">
         <div>
             <h2>Total Pendapatan</h2>
@@ -81,9 +83,9 @@ $balance = $totalIncome - $totalExpense;
             while ($item = mysqli_fetch_array($query)) {
                 $icon = $item['type'] == 0 ? './assets/image/gaji.jpg' : './assets/image/keranjang.jpg';
                 $amountClass = $item['type'] == 0 ? 'income' : 'expense';
-       
+
         ?>
-        
+
                 <div class="transaction-item">
                     <div class="transaction-info">
                         <img src="<?= $icon ?>" alt="icon">
@@ -117,7 +119,7 @@ $balance = $totalIncome - $totalExpense;
             <img src="./assets/image/tambah1.jpg" alt="Add">
             <span>Tambah</span>
         </a>
-        <a href="laporan.php">
+        <a href="report.php">
             <img src="./assets/image/laporan.png" alt="">
             <span>Laporan</span>
         </a>
