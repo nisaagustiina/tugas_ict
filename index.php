@@ -46,7 +46,14 @@ $balance = $totalIncome - $totalExpense;
         <a href="logout.php" class="logout">Logout</a>
     </div>
 
+    <!-- kategori -->
     <a href="./category.php">Tambah Kategori</a>
+    <br>
+    <!-- Link download data as CSV -->
+    <a href="journal-proses.php?download=csv">Download Data as CSV</a>
+    <br>
+    <!-- Link download data as pdf -->
+    <a href="journal-proses.php?download=pdf">Download Data as pdf</a>
 
     <div class="summary">
         <div>

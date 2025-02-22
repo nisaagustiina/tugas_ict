@@ -50,10 +50,7 @@
 </head>
 
 <body>
-
-    <header>
-        Laporan Keuangan
-    </header>
+    <a href="index.php">Kembali</a>
 
     <div class="container">
 
