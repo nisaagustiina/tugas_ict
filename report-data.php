@@ -21,8 +21,8 @@ function getMonthlyData($conn, $user_id) {
     $query_monthly = "
         SELECT 
             MONTH(date) AS month,
-            SUM(CASE WHEN type = 1 THEN nominal ELSE 0 END) AS income, 
-            SUM(CASE WHEN type = 0 THEN nominal ELSE 0 END) AS outcome
+            SUM(CASE WHEN type = 0 THEN nominal ELSE 0 END) AS income, 
+            SUM(CASE WHEN type = 1 THEN nominal ELSE 0 END) AS outcome
         FROM journals
         WHERE user_id = ?
         GROUP BY MONTH(date)
@@ -57,7 +57,7 @@ function getCategoryData($conn, $user_id) {
     $query_category = "
         SELECT 
             c.name, 
-            SUM(CASE WHEN j.type = 0 THEN j.nominal ELSE 0 END) AS outcome
+            SUM(CASE WHEN j.type = 1 THEN j.nominal ELSE 0 END) AS outcome
         FROM journals j
         JOIN categories c ON j.category_id = c.id
         WHERE j.user_id = ?

@@ -68,7 +68,7 @@ function downloadCSV($conn)
 
         // Write the data to the CSV file
         while ($row = $result->fetch_assoc()) {
-            $type = $row['type'] == 1 ? 'Pemasukan' : 'Pengeluaran';
+            $type = $row['type'] == 0? 'Pemasukan' : 'Pengeluaran';
 
             $rowData = [
                 $row['id'],
@@ -120,7 +120,7 @@ function downloadPDF($conn)
 
         // Menulis data ke dalam PDF
         while ($row = $result->fetch_assoc()) {
-            $type = $row['type'] == 1 ? 'Pemasukan' : 'Pengeluaran';
+            $type = $row['type'] == 0 ? 'Pemasukan' : 'Pengeluaran';
 
             $pdf->Cell(10, 10, $row['id'], 1);
             $pdf->Cell(30, 10, $row['user_name'], 1);
